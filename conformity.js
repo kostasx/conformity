@@ -52,6 +52,7 @@
                 row or a new one
             */
             topPosition = this.getBoundingClientRect().top;
+                       // this.getBoundingClientRect().top + document.body.scrollTop;
 
             var elHeight;
 
@@ -59,9 +60,9 @@
                 for ( var i = 0 ; i < rowDivs.length ; i++ ) {
                     rowDivs[i].style[settings.mode] = currentTallest; 
                 }
-                rowDivs.length = 0; // empty the array
+                rowDivs.length  = 0; // empty the array
                 currentRowStart = topPosition;
-                currentTallest = this.offsetHeight;
+                currentTallest  = this.offsetHeight;
                 rowDivs.push(this);
             } else {
                 elHeight = this.offsetHeight;
