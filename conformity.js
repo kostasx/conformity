@@ -28,6 +28,7 @@
             currentRowStart = 0,
             rowDivs = [],
             $el,
+            el,
             topPosition = 0;
 
         if (options) {
@@ -35,43 +36,45 @@
         }
 
         return elements.each(function() {
-            $el = $(this);
 
             /*
                 alter height and min-height so we can get an accurate measure of the
                 elements height
             */
             if (settings.mode === 'min-height') {
-                $el
-                    .height('auto')
-                    .css('min-height', 0);
+                this.style.height = "auto";
+                this.style.minHeight = 0;
             } else if (settings.mode === 'height')  {
-                $el.height('auto');
+                this.style.height = "auto";
             }
+            this.style.height = "auto";
 
             /*
                 top offset is used to determine if the element is on the current
                 row or a new one
             */
-            topPosition = $el.offset().top;
+            topPosition = this.getBoundingClientRect().top;
+
+            var elHeight;
 
             if (currentRowStart != topPosition) {
-                for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-                    rowDivs[currentDiv].css(settings.mode, currentTallest);
+                for ( var i = 0 ; i < rowDivs.length ; i++ ) {
+                    rowDivs[i].style[settings.mode] = currentTallest; 
                 }
-
                 rowDivs.length = 0; // empty the array
                 currentRowStart = topPosition;
-                currentTallest = $el.outerHeight();
-                rowDivs.push($el);
+                currentTallest = this.offsetHeight;
+                rowDivs.push(this);
             } else {
-                rowDivs.push($el);
-                currentTallest = (currentTallest < $el.outerHeight()) ? ($el.outerHeight()) : (currentTallest);
+                elHeight = this.offsetHeight;
+                rowDivs.push(this); 
+                currentTallest = ( currentTallest < elHeight ) ? ( elHeight ) : ( currentTallest );
             }
 
-            for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-                rowDivs[currentDiv].css(settings.mode, currentTallest);
+            for ( var i = 0; i < rowDivs.length ; i++) {
+                rowDivs[i].style[settings.mode] = currentTallest + "px";
             }
+
         });
     };
 }));
