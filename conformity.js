@@ -27,8 +27,6 @@
             currentTallest = 0,
             currentRowStart = 0,
             rowDivs = [],
-            $el,
-            el,
             topPosition = 0;
 
         if (options) {
