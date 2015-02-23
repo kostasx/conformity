@@ -56,8 +56,8 @@
 
             var elHeight;
 
-            if (currentRowStart != topPosition) {
-                for ( var i = 0 ; i < rowDivs.length ; i++ ) {
+            if ( currentRowStart != topPosition ) {
+                for ( var i = rowDivs.length; i--; ) {
                     rowDivs[i].style[settings.mode] = currentTallest; 
                 }
                 rowDivs.length  = 0; // empty the array
@@ -70,7 +70,7 @@
                 currentTallest = ( currentTallest < elHeight ) ? ( elHeight ) : ( currentTallest );
             }
 
-            for ( var i = 0; i < rowDivs.length ; i++) {
+            for ( var i = rowDivs.length; i--; ) {
                 rowDivs[i].style[settings.mode] = currentTallest + "px";
             }
 
